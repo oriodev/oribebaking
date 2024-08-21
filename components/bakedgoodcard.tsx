@@ -6,7 +6,7 @@ const BakedGoodCard = ({ bakedGood }: { bakedGood: BakedGood }) => {
   return (
     <div className="flex gap-5 p-3 bg-off-white border-solid rounded-lg shadow-lg">
       {/* info */}
-      <div className="flex flex-col gap-4 w-1/2">
+      <div className="flex flex-col justify-between gap-4 w-1/2">
         <div>
           <p className="font-bold text-xl">{bakedGood.title}</p>
           <p>{bakedGood.description}</p>
@@ -17,7 +17,7 @@ const BakedGoodCard = ({ bakedGood }: { bakedGood: BakedGood }) => {
       </div>
 
       {/* image */}
-      <div className="relative w-1/2 h-48">
+      <div className="relative w-1/2 h-64">
         <Image
           alt={bakedGood.title}
           src={bakedGood.image}
