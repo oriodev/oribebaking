@@ -3,3 +3,12 @@ export interface BakedGood {
   description?: string,
   image: string
 }
+
+export interface Order {
+  bakedGoodTitle: string;
+  bakedGoodImage: string;
+  quantity: number;
+  date: string;
+  flat: string;
+  status: string;
+}

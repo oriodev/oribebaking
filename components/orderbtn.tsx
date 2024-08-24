@@ -1,6 +1,10 @@
-const OrderBtn = () => {
+const OrderBtn = ({ handleClick }: { handleClick: any }) => {
   return (
-    <button className="bg-purple text-off-white rounded-lg w-1/2 p-2 font-bold">
+    <button
+      type="button"
+      className="bg-purple w-full text-off-white rounded-lg p-2 font-bold"
+      onClick={handleClick}
+    >
       ORDER
     </button>
   );
