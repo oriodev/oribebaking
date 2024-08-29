@@ -18,3 +18,8 @@ a web app for a hypothetical baker taking orders for baked goods from the reside
 4. baked good page displays form to order good.
 5. orders page displays all current orders.
 6. orders are sorted by delivery date.
+7. authentication w/ user and admin accounts.
+8. user accounts can only see their orders.
+9. admin accounts can see all orders.
+10. admin accounts can update order status.
+11. admin accounts can add new baked goods.
