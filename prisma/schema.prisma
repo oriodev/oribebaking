@@ -12,11 +12,13 @@ model BakedGood {
   title       String
   description String
   image       String
+  orders  Order[]
 }
 
 model Order {
   id          Int           @id @default(autoincrement())
-  bakedGood   Int
+  bakedGood  BakedGood      @relation(fields: [bakedGoodId], references: [id])
+  bakedGoodId   Int
   quantity    Int
   date        String
   flat        String

@@ -3,6 +3,7 @@ import { filterBakedGoods } from '@/misc/utils';
 
 interface SearchbarProps {
   allBakedGoods: BakedGood[];
+  bakedGoods: BakedGood[];
   setBakedGoods: any;
 }
 
@@ -11,6 +12,7 @@ const Searchbar = ({ allBakedGoods, setBakedGoods }: SearchbarProps) => {
     const input = e.target.value;
 
     const bakedGoods = filterBakedGoods(allBakedGoods, input);
+
     setBakedGoods(bakedGoods);
   };
 

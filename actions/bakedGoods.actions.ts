@@ -1,3 +1,5 @@
+'use server'
+
 import { db } from '@/misc/db'
 import { BakedGood } from '@/misc/types';
 

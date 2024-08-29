@@ -1,14 +1,30 @@
 'use client';
 
+import { getAllOrders } from '@/actions/orders.actions';
 import OrderCard from '@/components/ordercard';
-import { orders } from '@/misc/mock_data';
+import { Order } from '@/misc/types';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { VscArrowLeft } from 'react-icons/vsc';
 
 export default function Home() {
   const title = 'ORDERS';
   const description = 'the goods we be working on!';
+
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      const orders = await getAllOrders();
+
+      if (orders) {
+        setOrders(orders);
+      }
+    };
+
+    getOrders();
+  }, []);
 
   const mockOrders = orders.sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()

@@ -1,16 +1,31 @@
 'use client';
 
+import { getAllBakedGoods } from '@/actions/bakedGoods.actions';
 import BakedGoodCard from '@/components/bakedgoodcard';
 import Searchbar from '@/components/searchbar';
 import { bakedGoods as mockBakedGoods } from '@/misc/mock_data';
 import { BakedGood } from '@/misc/types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const title = 'ORI BE BAKING';
   const description = 'baked goods for the residents of lindon house!';
 
-  const [bakedGoods, setBakedGoods] = useState<BakedGood[]>(mockBakedGoods);
+  const [allBakedGoods, setAllBakedGoods] = useState<BakedGood[]>([]);
+  const [bakedGoods, setBakedGoods] = useState<BakedGood[]>([]);
+
+  useEffect(() => {
+    const getBakedGoods = async () => {
+      const goods = await getAllBakedGoods();
+
+      if (goods) {
+        setAllBakedGoods(goods);
+        setBakedGoods(goods);
+      }
+    };
+
+    getBakedGoods();
+  }, []);
 
   return (
     <div className="flex flex-col items-center h-screen bg-off-white">
@@ -19,7 +34,8 @@ export default function Home() {
         <p className="font-bold text-3xl">{title}</p>
         <p className="text-center text-lg">{description}</p>
         <Searchbar
-          allBakedGoods={mockBakedGoods}
+          allBakedGoods={allBakedGoods}
+          bakedGoods={bakedGoods}
           setBakedGoods={setBakedGoods}
         />
       </div>

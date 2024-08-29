@@ -1,3 +1,5 @@
+'use server'
+
 import { db } from '@/misc/db'
 import { Order } from '@/misc/types';
 import { getBakedGoodByName } from './bakedGoods.actions';
@@ -5,8 +7,24 @@ import { getBakedGoodByName } from './bakedGoods.actions';
 export const getAllOrders = async () => {
   try {
 
-    const orders = await db.order.findMany()
-    return orders
+    const orders = await db.order.findMany({
+      include: {
+        bakedGood: true
+      }
+    })
+
+    const formattedOrders = orders.map((order) => {
+      return {
+        bakedGoodTitle: order.bakedGood.title,
+        bakedGoodImage: order.bakedGood.image,
+        quantity: order.quantity,
+        date: order.date,
+        flat: order.flat,
+        status: order.status
+      }
+    })
+
+    return formattedOrders
 
   } catch (error) {
     console.log(error)
@@ -20,10 +38,27 @@ export const getOrderById = async (id: number) => {
     const order = await db.order.findFirst({
       where: {
         id
+      },
+      include: {
+        bakedGood: true
       }
     })
 
-    return order
+    if (!order) {
+      return { error: 'no such order' }
+    }
+
+
+    const formattedOrder = {
+      bakedGoodTitle: order.bakedGood.title,
+      bakedGoodImage: order.bakedGood.image,
+      quantity: order.quantity,
+      date: order.date,
+      flat: order.flat,
+      status: order.status
+    }
+
+    return formattedOrder
 
   } catch (error) {
     console.log(error)
@@ -31,7 +66,7 @@ export const getOrderById = async (id: number) => {
 
 }
 
-export const addOrder = async (order: Order) => {
+export const addOrder = async (order: any) => {
 
   const bakedGood = await getBakedGoodByName(order.bakedGoodTitle)
 
@@ -42,7 +77,7 @@ export const addOrder = async (order: Order) => {
   try {
     const createOrder = await db.order.create({
       data: {
-        bakedGood: bakedGood.id,
+        bakedGoodId: bakedGood.id,
         quantity: order.quantity,
         flat: order.flat,
         date: order.date,
