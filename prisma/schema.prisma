@@ -22,5 +22,6 @@ model Order {
   quantity    Int
   date        String
   flat        String
-  status      String
+  status      Int
+  userId      String
 }

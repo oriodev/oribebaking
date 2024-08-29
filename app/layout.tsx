@@ -2,6 +2,11 @@ import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import './globals.css';
 
+// clerk.
+import { ClerkProvider } from '@clerk/nextjs';
+import AuthBar from '@/components/auth/AuthBar';
+import { dark, neobrutalism } from '@clerk/themes';
+
 const nunito = Nunito({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -15,8 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={nunito.className}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={nunito.className}>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }

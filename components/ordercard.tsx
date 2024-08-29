@@ -1,7 +1,9 @@
-import OrderBtn from './orderbtn';
-import { Order } from '@/misc/types';
+import { Order } from '@/types/data_types';
 import Image from 'next/image';
 import StatusBtn from './statusbtn';
+import AdminOnly from './auth/AdminOnly';
+import UserOnly from './auth/UserOnly';
+import StatusBtnUser from './statusbtnuser';
 
 const OrderCard = ({ order }: { order: Order }) => {
   const status = order.status;
@@ -27,7 +29,12 @@ const OrderCard = ({ order }: { order: Order }) => {
         </div>
         {/* button */}
         <div>
-          <StatusBtn status={status} />
+          <AdminOnly>
+            <StatusBtn status={status} />
+          </AdminOnly>
+          <UserOnly>
+            <StatusBtnUser status={status} />
+          </UserOnly>
         </div>
       </div>
 

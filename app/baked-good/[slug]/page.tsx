@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { BakedGood } from '@/misc/types';
+import { BakedGood } from '@/types/data_types';
 import { bakedGoods as mockBakedGoods } from '@/misc/mock_data';
 import { redirect, useRouter } from 'next/navigation';
 import { VscArrowLeft } from 'react-icons/vsc';
@@ -47,14 +47,14 @@ export default function BakedGood({ params }: { params: Params }) {
           </div>
           <div>
             <p className="font-bold text-3xl text-center">{title}</p>
-            <p className="text-center text-lg">{description}</p>
+            {/* <p className="text-center text-lg">{description}</p> */}
           </div>
         </div>
       </div>
 
       {/* form */}
       <div className="w-full">
-        <OrderForm />
+        <OrderForm bakedGood={bakedGood} />
       </div>
     </div>
   );

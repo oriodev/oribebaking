@@ -1,7 +1,7 @@
 'use server'
 
 import { db } from '@/misc/db'
-import { BakedGood } from '@/misc/types';
+import { BakedGood } from '@/types/data_types';
 
 export const getAllBakedGoods = async () => {
   try {

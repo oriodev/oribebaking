@@ -10,5 +10,5 @@ export interface Order {
   quantity: number;
   date: string;
   flat: string;
-  status: string;
+  status: number;
 }

@@ -1,12 +1,42 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 import OrderBtn from './orderbtn';
+import { useState } from 'react';
+import { addOrder } from '@/actions/orders.actions';
+import { BakedGood } from '@/types/data_types';
 
-const OrderForm = () => {
+const OrderForm = ({ bakedGood }: { bakedGood: BakedGood }) => {
   const router = useRouter();
 
-  const handleClick = () => {
-    console.log('order!');
-    router.push('/');
+  // State to manage form inputs
+  const [quantity, setQuantity] = useState('');
+  const [flat, setFlat] = useState('');
+  const [date, setDate] = useState('');
+
+  // @ts-ignore
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    const order = {
+      bakedGoodTitle: bakedGood.title,
+      quantity: parseInt(quantity),
+      flat,
+      date,
+      status: 0,
+    };
+
+    try {
+      await addOrder(order);
+
+      setQuantity('');
+      setFlat('');
+      setDate('');
+
+      router.push('/');
+    } catch (error) {
+      console.error('Failed to add order:', error);
+    }
   };
 
   return (
@@ -22,6 +52,8 @@ const OrderForm = () => {
           id="quantity"
           min={0}
           max={10}
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
         />
       </div>
 
@@ -34,6 +66,8 @@ const OrderForm = () => {
           className="bg-pink p-3 rounded-full text-purple-black placeholder-purple-black focus:outline-none"
           placeholder="103"
           id="flatnumber"
+          value={flat}
+          onChange={(e) => setFlat(e.target.value)}
         />
       </div>
 
@@ -46,10 +80,12 @@ const OrderForm = () => {
           className="bg-pink p-3 rounded-full text-purple-black placeholder-purple-black focus:outline-none"
           placeholder=""
           id="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
         />
       </div>
       <div className="flex justify-center w-2/3">
-        <OrderBtn handleClick={handleClick} />
+        <OrderBtn handleClick={handleClick} text="ORDER" />
       </div>
     </form>
   );

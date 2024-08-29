@@ -2,7 +2,9 @@
 
 import { getAllOrders } from '@/actions/orders.actions';
 import OrderCard from '@/components/ordercard';
-import { Order } from '@/misc/types';
+import { Order } from '@/types/data_types';
+import { checkRole, getUserId } from '@/utils/roles';
+import { auth } from '@clerk/nextjs/server';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -18,8 +20,17 @@ export default function Home() {
     const getOrders = async () => {
       const orders = await getAllOrders();
 
-      if (orders) {
+      const isAdmin = await checkRole('admin');
+
+      if (orders && isAdmin) {
         setOrders(orders);
+      }
+
+      if (orders && !isAdmin) {
+        const userId = await getUserId();
+
+        const usersOrders = orders.filter((order) => order.userId === userId);
+        setOrders(usersOrders);
       }
     };
 

@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.3.6",
+    "@clerk/themes": "^2.1.24",
     "@prisma/client": "^5.18.0",
     "canvas-particle-network": "^1.5.0",
     "next": "14.2.5",

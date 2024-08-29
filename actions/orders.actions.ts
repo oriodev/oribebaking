@@ -1,8 +1,8 @@
 'use server'
 
 import { db } from '@/misc/db'
-import { Order } from '@/misc/types';
 import { getBakedGoodByName } from './bakedGoods.actions';
+import { auth } from '@clerk/nextjs/server';
 
 export const getAllOrders = async () => {
   try {
@@ -20,7 +20,8 @@ export const getAllOrders = async () => {
         quantity: order.quantity,
         date: order.date,
         flat: order.flat,
-        status: order.status
+        status: order.status,
+        userId: order.userId
       }
     })
 
@@ -68,6 +69,12 @@ export const getOrderById = async (id: number) => {
 
 export const addOrder = async (order: any) => {
 
+  const { userId } = auth();
+
+  if (!userId) {
+    return { error: 'no such user' }
+  }
+
   const bakedGood = await getBakedGoodByName(order.bakedGoodTitle)
 
   if (!bakedGood) {
@@ -81,7 +88,8 @@ export const addOrder = async (order: any) => {
         quantity: order.quantity,
         flat: order.flat,
         date: order.date,
-        status: order.status
+        status: order.status,
+        userId: userId
       }
     })
 
@@ -93,7 +101,7 @@ export const addOrder = async (order: any) => {
 
 }
 
-export const updateOrderStatusById = async (id: number, status: string) => {
+export const updateOrderStatusById = async (id: number, status: number) => {
 
   try {
 
