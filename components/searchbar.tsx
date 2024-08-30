@@ -1,4 +1,4 @@
-import { BakedGood } from '@/misc/types';
+import { BakedGood } from '@/types/data_types';
 import { filterBakedGoods } from '@/misc/utils';
 
 interface SearchbarProps {
