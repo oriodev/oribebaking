@@ -4,9 +4,39 @@ import StatusBtn from './statusbtn';
 import AdminOnly from './auth/AdminOnly';
 import UserOnly from './auth/UserOnly';
 import StatusBtnUser from './statusbtnuser';
+import OrderBtn from './orderbtn';
+import { deleteBakedGood } from '@/actions/bakedGoods.actions';
+import { deleteOrder } from '@/actions/orders.actions';
+import { useRouter } from 'next/navigation';
 
-const OrderCard = ({ order }: { order: Order }) => {
+const OrderCard = ({
+  order,
+  orders,
+  setOrders,
+}: {
+  order: Order;
+  orders: Order[];
+  setOrders: any;
+}) => {
   const status = order.status;
+
+  const router = useRouter();
+
+  const handleDeleteBtn = async () => {
+    try {
+      const deletedOrder = await deleteOrder(order.id);
+
+      const filterOrders = orders.filter(
+        (thisOrder) => thisOrder.id !== order.id
+      );
+
+      setOrders(filterOrders);
+
+      router.push('/orders');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex gap-5 p-3 bg-off-white border-solid rounded-lg shadow-lg">
@@ -28,9 +58,10 @@ const OrderCard = ({ order }: { order: Order }) => {
           </div>
         </div>
         {/* button */}
-        <div>
+        <div className="flex gap-2">
           <AdminOnly>
             <StatusBtn status={status} />
+            <OrderBtn handleClick={handleDeleteBtn} text="DELETE" />
           </AdminOnly>
           <UserOnly>
             <StatusBtnUser status={status} />

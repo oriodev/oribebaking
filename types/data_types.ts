@@ -5,6 +5,7 @@ export interface BakedGood {
 }
 
 export interface Order {
+  id: number;
   bakedGoodTitle: string;
   bakedGoodImage: string;
   quantity: number;

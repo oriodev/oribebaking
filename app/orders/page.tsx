@@ -37,7 +37,7 @@ export default function Home() {
     getOrders();
   }, []);
 
-  const mockOrders = orders.sort(
+  const sortedOrders = orders.sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
@@ -59,8 +59,15 @@ export default function Home() {
 
       {/* baked goods */}
       <div className="overflow-auto bg-gradient-to-b from-purple via-mid-purple to-pink flex flex-col gap-5 p-7 rounded-t-xxl max-w-lg scroll no-scrollbar h-screen w-full">
-        {mockOrders.map((order) => {
-          return <OrderCard key={order.bakedGoodTitle} order={order} />;
+        {sortedOrders.map((order) => {
+          return (
+            <OrderCard
+              key={order.bakedGoodTitle}
+              order={order}
+              orders={orders}
+              setOrders={setOrders}
+            />
+          );
         })}
 
         {orders.length === 0 && (

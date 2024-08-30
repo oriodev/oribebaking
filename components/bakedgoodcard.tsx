@@ -50,7 +50,7 @@ const BakedGoodCard = ({
           <p>{bakedGood.description}</p>
         </div>
         <div className="flex gap-2">
-          <OrderBtn handleClick={handleOrderBtn} text="ORDER" />
+          <OrderBtn handleClick={handleOrderBtn} text="£1.99" />
           <AdminOnly>
             <OrderBtn handleClick={handleDeleteBtn} text="DELETE" />
           </AdminOnly>

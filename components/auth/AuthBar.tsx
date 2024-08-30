@@ -42,12 +42,14 @@ const AuthBar = () => {
       </div>
 
       {/* orders page */}
-      <div
-        className="hover:cursor-pointer transition-transform duration-300 transform hover:scale-105"
-        onClick={orderPage}
-      >
-        <FaCookieBite size={20} />
-      </div>
+      <SignedIn>
+        <div
+          className="hover:cursor-pointer transition-transform duration-300 transform hover:scale-105"
+          onClick={orderPage}
+        >
+          <FaCookieBite size={20} />
+        </div>
+      </SignedIn>
 
       {/* add good page */}
       <AdminOnly>

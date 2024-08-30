@@ -15,6 +15,7 @@ export const getAllOrders = async () => {
 
     const formattedOrders = orders.map((order) => {
       return {
+        id: order.id,
         bakedGoodTitle: order.bakedGood.title,
         bakedGoodImage: order.bakedGood.image,
         quantity: order.quantity,
@@ -93,7 +94,7 @@ export const addOrder = async (order: any) => {
       }
     })
 
-    return { success: 'created!' }
+    return { success: 'created!', id: createOrder.id }
 
   } catch (error) {
     console.log(error)

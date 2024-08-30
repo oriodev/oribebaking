@@ -27,7 +27,7 @@ export default function BakedGood({ params }: { params: Params }) {
   const description = bakedGood?.description || '';
 
   return (
-    <div className="flex flex-col items-center h-screen max-w-lg mx-auto bg-off-white">
+    <div className="flex flex-col items-center max-h-full h-screen pb-5 max-w-lg mx-auto bg-off-white">
       {/* top */}
       <div className="flex flex-col gap-5 p-5 text-off-white bg-gradient-to-b from-pink via-mid-purple to-purple rounded-b-xxl w-full">
         <button onClick={() => router.push('/')}>
@@ -47,7 +47,6 @@ export default function BakedGood({ params }: { params: Params }) {
           </div>
           <div>
             <p className="font-bold text-3xl text-center">{title}</p>
-            {/* <p className="text-center text-lg">{description}</p> */}
           </div>
         </div>
       </div>

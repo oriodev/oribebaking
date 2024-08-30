@@ -5,7 +5,13 @@ import { useState } from 'react';
 const StatusBtn = ({ status }: { status: number }) => {
   const [statusIndex, setStatusIndex] = useState(status);
 
-  const statusOptions = ['ORDERED', 'ACCEPTED', 'BAKED', 'DELIVERED'];
+  const statusOptions = [
+    'PENDING',
+    'ORDERED',
+    'ACCEPTED',
+    'BAKED',
+    'DELIVERED',
+  ];
   const numOfOptions = statusOptions.length;
 
   const handleClick = () => {
